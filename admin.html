@@ -52,6 +52,12 @@
       border: 1px solid #1f2937;
     }
 
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .brand { display: flex; align-items: center; gap: 14px; }
 
     .badge-logo {
@@ -72,6 +78,23 @@
     .brand-text span {
       display:block; font-size:11px; color:var(--muted);
       text-transform:uppercase; letter-spacing:.12em; margin-top:2px;
+    }
+
+    .back-link {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid #1f2937;
+      background: #020617;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .back-link:hover {
+      color: #e5e7eb;
+      border-color: #22c55e;
     }
 
     .lang-switch {
@@ -267,6 +290,41 @@
     .hint{font-size:11px;color:var(--muted);margin-top:4px;}
     .hint-error{color:#fecaca;}
 
+    /* دعم خدمة العملاء في الأسفل */
+    .support-footer{
+      margin-top:16px;
+      display:flex;
+      justify-content:flex-start;
+    }
+
+    .support-box{
+      font-size:12px;
+      color:var(--muted);
+      padding:10px 14px;
+      border-radius:16px;
+      border:1px solid #1f2937;
+      background:#020617;
+      line-height:1.6;
+    }
+
+    .support-title{
+      font-size:14px;
+      color:#22c55e;
+      font-weight:600;
+      margin-bottom:4px;
+      text-align:left;
+    }
+
+    .support-row{
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+
+    .support-icon{
+      font-size:13px;
+    }
+
     footer{margin-top:4px;font-size:10px;color:#4b5563;text-align:right;}
     footer span{color:#a7f3d0;}
   </style>
@@ -284,12 +342,19 @@
 <body>
   <div class="app">
     <header>
-      <div class="brand">
-        <div class="badge-logo">Lx</div>
-        <div class="brand-text">
-          <h1 id="text_brand">Logixperts</h1>
-          <span id="text_subbrand">Smart Load Analyzer</span>
+      <div class="brand-group">
+        <div class="brand">
+          <div class="badge-logo">Lx</div>
+          <div class="brand-text">
+            <h1 id="text_brand">Logixperts</h1>
+            <span id="text_subbrand">Smart Load Analyzer</span>
+          </div>
         </div>
+
+        <!-- زر الرجوع لصفحة المستخدم -->
+        <a href="index.html" id="back_link" class="back-link">
+          ← Back to role selection
+        </a>
       </div>
 
       <button class="lang-switch" id="langSwitcher" type="button" onclick="toggleLanguage()">AR</button>
@@ -329,8 +394,6 @@
           <h3 id="hero_avg_before_title">Avg load (baseline)</h3>
           <p id="hero-load-before">–</p>
         </div>
-
-        <!-- تم حذف Avg load (after) من الهيرو -->
 
         <div class="hero-metric-card">
           <h3 id="hero_cost_title">Op. cost / day</h3>
@@ -648,6 +711,25 @@
       </section>
     </main>
 
+    <!-- خدمة العملاء -->
+    <div class="support-footer">
+      <div class="support-box">
+        <div class="support-title" id="support_title">Customer Support</div>
+        <div class="support-row">
+          <span class="support-icon">📞</span>
+          <span id="support_phone_label">Phone:</span>&nbsp;<span>+966 55 555 5555</span>
+        </div>
+        <div class="support-row">
+          <span class="support-icon">📧</span>
+          <span id="support_email_label">Email:</span>&nbsp;<span>support@logixperts.com</span>
+        </div>
+        <div class="support-row">
+          <span class="support-icon">📠</span>
+          <span id="support_fax_label">Fax:</span>&nbsp;<span>011-1234567</span>
+        </div>
+      </div>
+    </div>
+
     <footer>
       Logixperts · Smart Load Analyzer · Naqlthon 4
     </footer>
@@ -734,7 +816,14 @@
         opt_col_ai: "AI Suggestion",
 
         chart_title: "Before vs After Optimization",
-        chart_sub: "Average load improvement"
+        chart_sub: "Average load improvement",
+
+        // Support + back link
+        support_title: "Customer Support",
+        support_phone_label: "Phone:",
+        support_email_label: "Email:",
+        support_fax_label: "Fax:",
+        back_link: "← Back to role selection"
       },
       ar: {
         brand: "لوچكسبرتس",
@@ -812,7 +901,13 @@
         opt_col_ai: "اقتراح النظام",
 
         chart_title: "قبل وبعد التحسين",
-        chart_sub: "تحسن متوسط الحمولة"
+        chart_sub: "تحسن متوسط الحمولة",
+
+        support_title: "خدمة العملاء",
+        support_phone_label: "الهاتف:",
+        support_email_label: "البريد الإلكتروني:",
+        support_fax_label: "فاكس:",
+        back_link: "← الرجوع لصفحة المستخدم"
       }
     };
 
@@ -895,14 +990,24 @@
       document.getElementById("chart_title").innerText = t.chart_title;
       document.getElementById("chart_sub").innerText = t.chart_sub;
 
+      // دعم خدمة العملاء + زر الرجوع
+      document.getElementById("support_title").innerText = t.support_title;
+      document.getElementById("support_phone_label").innerText = t.support_phone_label;
+      document.getElementById("support_email_label").innerText = t.support_email_label;
+      document.getElementById("support_fax_label").innerText = t.support_fax_label;
+      document.getElementById("back_link").innerText = t.back_link;
+
       if (currentLang === "ar") {
         document.documentElement.lang = "ar";
         document.documentElement.dir = "rtl";
         document.getElementById("langSwitcher").innerText = "EN";
+        // عشان عنوان خدمة العملاء يكون يمين في العربي
+        document.querySelector(".support-title").style.textAlign = "right";
       } else {
         document.documentElement.lang = "en";
         document.documentElement.dir = "ltr";
         document.getElementById("langSwitcher").innerText = "AR";
+        document.querySelector(".support-title").style.textAlign = "left";
       }
     }
 
